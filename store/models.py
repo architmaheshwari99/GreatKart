@@ -41,4 +41,8 @@ class Variations(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.product
+        return self.product.product_name
+
+    class Meta:
+        verbose_name = "variation"
+        verbose_name_plural = "variations"
