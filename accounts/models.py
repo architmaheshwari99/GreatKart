@@ -3,19 +3,20 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 # Create your models here.
 
+
 class MyAccountManager(BaseUserManager):
     def create_user(self, first_name, last_name, username, email, password=None):
         if not email:
-            raise ValueError('Email address not entered')
+            raise ValueError("Email address not entered")
 
         if not username:
-            raise ValueError('Username is not passed')
+            raise ValueError("Username is not passed")
 
-        user=self.model(
+        user = self.model(
             email=self.normalize_email(email),
             username=username,
             first_name=first_name,
-            last_name=last_name
+            last_name=last_name,
         )
 
         user.set_password(password)
@@ -23,11 +24,13 @@ class MyAccountManager(BaseUserManager):
         return user
 
     def create_superuser(self, first_name, last_name, username, email, password):
-        user = self.create_user(email=self.normalize_email(email),
+        user = self.create_user(
+            email=self.normalize_email(email),
             username=username,
             first_name=first_name,
             last_name=last_name,
-            password=password)
+            password=password,
+        )
         user.is_admin = True
         user.is_active = True
         user.is_staff = True
@@ -43,7 +46,7 @@ class Account(AbstractBaseUser):
     email = models.EmailField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=50)
 
-    #required
+    # required
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now_add=True)
     is_admin = models.BooleanField(default=False)
@@ -51,8 +54,8 @@ class Account(AbstractBaseUser):
     is_superadmin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username", "first_name", "last_name"]
 
     objects = MyAccountManager()
 

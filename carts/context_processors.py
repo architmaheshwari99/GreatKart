@@ -4,7 +4,7 @@ from carts.views import _cart_id
 
 def counter(request):
     cart_count = 0
-    if 'admin' in request.path:
+    if "admin" in request.path:
         return {}
     else:
         try:
@@ -15,4 +15,4 @@ def counter(request):
         except Cart.DoesNotExist:
             cart_count = 0
 
-        return {'cart_count': cart_count}
+        return {"cart_count": cart_count}
